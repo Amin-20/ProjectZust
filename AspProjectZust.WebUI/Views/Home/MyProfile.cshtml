@@ -51,13 +51,7 @@
                 <a href="#">
                     <img src="~/assets/images/user/@ViewBag.User.EditCoverImageUrl" alt="image">
                 </a>
-                <form asp-controller="Home" asp-action="EditCoverMyProfile" method="post" enctype="multipart/form-data"
-                      role="form" class="form-horizontal">
-                    <input style="display: block;margin-left: auto;margin-right: auto;" class="edit-cover-btn" type="file" asp-for="@Model.File">
-                    <button style="display: block;margin-left: auto;margin-right: auto;" type="submit" class="edit-cover-btn">
-                        Edit Cover
-                    </button>
-                </form>
+               
                 @*                 <a href="#" class="edit-cover-btn">Edit Cover</a> *@
             </div>
 
@@ -69,17 +63,6 @@
                                 <img style="width:100%;height:100%;" src="~/assets/images/user/@ViewBag.User.ImageUrl" alt="image">
                             </div>
                         </a>
-                        <div class="icon">
-                            @* <a href="#"> *@
-                            <form asp-controller="Home" asp-action="MyProfile" method="post" enctype="multipart/form-data"
-                                  role="form" class="form-horizontal">
-                                <input style="right: 0px;width: 110px;padding: 10px;" type="file" asp-for="@Model.File">
-                                <button style="display: block;margin-left: auto;margin-right: auto;" type="submit" class="btn btn-info">
-                                    Upload Image
-                                </button>
-                            </form>
-                            @* </a> *@
-                        </div>
                     </div>
                     <div class="info-text ms-3">
                         <h3><a href="#">@ViewBag.User.UserName</a></h3>
@@ -179,9 +162,6 @@
                                     <ul class="button-group d-flex justify-content-between align-items-center">
                                         <li class="photo-btn">
                                             <button onclick="chooseMedia(event)"><i class="flaticon-gallery"></i> Photo</button>
-                                        </li>
-                                        <li class="video-btn">
-                                            <input type="text" asp-for="VideoUrl" />
                                         </li>
                                         <section id="btn-container">
                                         <li class="post-btn ">
