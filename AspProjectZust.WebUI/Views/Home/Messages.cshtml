@@ -49,9 +49,6 @@
                 <div class="dropdown">
                     <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flaticon-menu"></i></button>
                     <ul class="dropdown-menu">
-                       @*  <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="flaticon-edit"></i> Edit Messages</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="flaticon-private"></i> Hide Messages</a></li> *@
-                        @* <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="flaticon-trash"></i> Delete Messages</a></li> *@
                     </ul>
                 </div>
             </div>
@@ -103,11 +100,8 @@
                 </div>
 
                 <div class="chat-list-footer" style="display:flex">
-                    @* <form class="d-flex align-items-center"> *@
                     <input type="text" id="message" class="form-control" placeholder="Type your message...">
-
                     <button onclick="SendMessage('@Model.CurrentChat.ReceiverId','@Model.CurrentChat.SenderId')" class="btn btn-outline-secondary">Send</button>
-                    @* </form> *@
                 </div>
             </div>
         </div>

@@ -5,15 +5,8 @@ function SendFollow(id) {
         url: `/Home/SendFollow/${id}`,
         method: "GET",
         success: function (data) {
-            //let element = document.querySelector("#alert");
-            //element.style.display = "block";
-            //element.innerHTML = "You friend request sent successfully";
             GetAllUsers();
             SendFollowCall(id);
-            //setTimeout(() => {
-            //    element.innerHTML = "";
-            //    element.style.display = "none";
-            //}, 5000);
         }
     })
 }
@@ -58,7 +51,7 @@ let weatherImg;
 function Weatherrr() {
     let content = ``;
     content += `
-     <section id="weatherSection" style="background-color:deepSkyBlue;">
+     <section id="weatherSection" style="background-color:blue;border-radius: 20px;">
          <section class="weather">
             <img id="weatherImg" alt="image">
             <h1 id="temp" ></h1>
@@ -71,37 +64,6 @@ function Weatherrr() {
     weatherImg = document.getElementById("weatherImg");
 }
 
-
-//let weatherImg;
-//async function GameMainMenu() {
-//    let content2 = ``;
-//    content2 += `
-//    <section id="menu">
-//     <section id="weatherAndMusicSection">
-//       <section class="weather">
-//          <img id="weatherImg" alt="">
-//          <h1 id="temp" ></h1>
-//          <h1 id="city">Baku</h1>
-//       </section>
-//       <button id="sound" onclick="SoundButton()"></button>
-
-//     </section>
-//       <section id="menuAll">
-//          <button onclick="PlayGameButtonClick()">
-//            Play Game
-//          </button>
-//          <button onclick="CarChangeButtonClick()">
-//            Car change
-//          </button>
-//       </section>
-//    </section>
-//    `;
-//    // document.getElementById("gameBackgroundSection").style.display = "none";
-//    mainGame.innerHTML += content2;
-//    weatherImg = document.getElementById("weatherImg");
-//    sound = document.getElementById("sound");
-//    menu = document.getElementById("menu");
-//}
 
 function WheatherTemp() {
     var element = document.getElementById("countryName");
@@ -243,93 +205,6 @@ function SearchUser() {
 
 SearchUser();
 
-//function SearchFriend() {
-//    var element = document.getElementById('searchFriendName');
-//    element.addEventListener('input', function () {
-//        let content = "";
-//        if (element.value != "") {
-//            $.ajax({
-//                url: `/Home/GetSearchFriends?filter=${element.value}`,
-//                method: "GET",
-//                success: function (data) {
-//                    for (var i = 0; i < data.length; i++) {
-//                        content += `
-
-//                           <div class="col-lg-3 col-sm-6">
-//                             <div class="single-friends-card">
-//                                 <div class="friends-image">
-//                                     <a href="#">
-//                                          <img src="/assets/images/friends/friends-bg-10.jpg" alt="image">
-//                                     </a>
-//                                     <div class="icon">
-//                                         <a href="#"><i class="flaticon-user"></i></a>
-//                                     </div>
-//                                 </div>
-//                                 <div class="friends-content">
-//                                     <div class="friends-info d-flex justify-content-between align-items-center">
-//                                         <a href="#">
-//                                              <img style="width:100px;height:100px" src='/assets/images/user/${data[i].imageUrl}' alt="image">
-//                                         </a>
-//                                         <div class="text ms-3">
-//                                             <h3><a href="#">${data[i].userName}</a></h3>
-//                                         </div>
-//                                     </div>
-//                                     <ul class="statistics">
-//                                         <li>
-//                                             <a href="#">
-//                                                 <span class="item-number">${data[i].likeCount}</span>
-//                                                 <span class="item-text">Likes</span>
-//                                             </a>
-//                                         </li>
-//                                         <li>
-//                                             <a href="#">
-//                                                 <span class="item-number">${data[i].followingCount}</span>
-//                                                 <span class="item-text">Following</span>
-//                                             </a>
-//                                         </li>
-//                                         <li>
-//                                             <a href="#">
-//                                                 <span class="item-number">${data[i].followersCount}</span>
-//                                                 <span class="item-text">Followers</span>
-//                                             </a>
-//                                         </li>
-//                                     </ul>
-//                                     <div class="button-group d-flex justify-content-between align-items-center">
-//                                         <div class="add-friend-btn">
-//                                         ${subContent}
-//                                         </div>
-//                                         <div class='send-message-btn'>
-//                                                 <a href='/Home/Messages/${data[i].id}'>
-//                                                   Send Message
-//                                                 </a>
-//                                           </button>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                          </div>
-
-//                    `;
-//                    }
-
-
-//                    $("#messageNotifications").html(notificationMessage);
-
-//                }
-//            })
-//        }
-//        else {
-//            $.ajax({
-//                url: `/Home/GetSearchFriends?filter=${element.value}`,
-//                method: "GET",
-//                success: function (data) {
-
-//                    $("#messageNotifications").html(notificationMessage);
-//                }
-//            })
-//        }
-//    });
-//}
 
 function chooseMedia(event) {
     event.preventDefault();
@@ -798,19 +673,6 @@ function PostDisLike(postId) {
     })
 }
 
-//function CommentLike(postId) {
-//    $.ajax({
-//        url: `/Home/CommentLike?postId=${postId}`,
-//        method: "Get",
-//        success: function (data) {
-//            GetAllUsers();
-//            for (var i = 0; i < data.length; i++) {
-//                SendFollowCall(data[i].id);
-//            }
-//        }
-//    })
-//}
-
 function VideoClose() {
     $(".VideoEace").html("");
 }
@@ -881,7 +743,6 @@ function GetMyAndFriendPosts() {
                     `;
                 }
 
-                //<li><a onclick="CommentLike(${data.friendPost[i].id})"><i class="flaticon-like"></i><span>Like</span> <span class="number">${data.friendPost[i].comments[k].likeCount} </span></a></li>
 
                 if (data.friendPost[i].comments.length > 3) {
                     comment += `
@@ -1061,7 +922,6 @@ function TodayFriendBirthday() {
 }
 
 async function GetAllUsers() {
-    //console.log("salam");
     $.ajax({
         url: "/Home/GetAllUsers",
         method: "GET",
@@ -1252,9 +1112,7 @@ async function GetAllUsers() {
             }
 
             var id2 = document.getElementById("onlineUsers");
-            /*if (id2 != null) {*/
             id2.innerHTML = d;
-            //}
             var yourFriendElement = document.getElementById("yourFriend");
 
             var liveChatFriends = document.getElementById("liveChatFriends");

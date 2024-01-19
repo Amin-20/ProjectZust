@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AspProjectZust.WebUI</title>
-    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
 
     <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/assets/css/animate.min.css">
@@ -30,11 +29,7 @@
         <div class="navbar-area">
             <div class="main-responsive-nav">
                 <div class="main-responsive-menu">
-                    @*<div class="responsive-burger-menu d-lg-none d-block">
-                        <span class="top-bar"></span>
-                        <span class="middle-bar"></span>
-                        <span class="bottom-bar"></span>
-                    </div>*@
+         
                 </div>
             </div>
 
@@ -45,9 +40,7 @@
         </div>
         <div class="sidemenu-area">
             <div class="responsive-burger-menu d-lg-none d-block">
-                @*<span class="top-bar"></span>
-                <span class="middle-bar"></span>
-                <span class="bottom-bar"></span>*@
+              
             </div>
 
             <div class="sidemenu-body">
@@ -74,12 +67,6 @@
                         <a asp-action="LiveChat" asp-controller="Home" class="nav-link">
                             <span class="icon"><i class="flaticon-live-chat"></i></span>
                             <span class="menu-title">Live Chat</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-action="Weather" asp-controller="Home" class="nav-link">
-                            <span class="icon"><i class="flaticon-cloudy"></i></span>
-                            <span class="menu-title">Weather</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -113,9 +100,6 @@
     </div>
 
 
-    @*     <div class="go-top">
-    <i class="ri-arrow-up-line"></i>
-    </div> *@
 
     <script src="~/assets/js/jquery.min.js"></script>
     <script src="~/assets/js/bootstrap.bundle.min.js"></script>
@@ -131,8 +115,6 @@
     <script src="~/assets/lib/jquery/dist/jquery.min.js"></script>
 
 
-    @*<script src="~/assets/js/signalr/dist/browser/signalr.js"></script>*@
-    @*<script src="~/assets/js/site.js"></script>*@
     <script src="~/assets/js/user.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

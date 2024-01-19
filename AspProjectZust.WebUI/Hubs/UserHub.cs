@@ -25,7 +25,6 @@ namespace AspProjectZust.WebUI.Hubs
             var user = await _userManager.GetUserAsync(_contextAccessor.HttpContext.User);
             var userItem = _context.Users.SingleOrDefault(x => x.Id == user.Id);
             userItem.IsOnline = true;
-            //_context.Update(userItem);
 
             await _context.SaveChangesAsync();
 
@@ -38,10 +37,8 @@ namespace AspProjectZust.WebUI.Hubs
             var user = await _userManager.GetUserAsync(_contextAccessor.HttpContext.User);
             var userItem = _context.Users.SingleOrDefault(x => x.Id == user.Id);
             userItem.IsOnline = false;
-            //userItem.DisconnectTime = DateTime.Now;
             _context.Update(userItem);
             await _context.SaveChangesAsync();
-            //string info = user.UserName + " disconnected successfully";
             await Clients.Others.SendAsync("Disconnect", "s");
         }
 
@@ -54,13 +51,6 @@ namespace AspProjectZust.WebUI.Hubs
         {
             await Clients.Users(new String[] { id }).SendAsync("LiveChatNotification", id2);
         }
-
-
-
-        //public async Task SendFollow(string id)
-        //{
-        //    await Clients.Users(new String[] { id }).SendAsync("ReceiveNotification");
-        //}
 
         public async Task GetMessage(string receiverId, string senderId)
         {

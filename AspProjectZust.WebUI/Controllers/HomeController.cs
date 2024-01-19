@@ -22,6 +22,7 @@ namespace AspProjectZust.WebUI.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+
         private UserManager<CustomIdentityUser> _userManager;
         private readonly IUserService _userService;
         private IWebHostEnvironment _webHost;
@@ -85,7 +86,7 @@ namespace AspProjectZust.WebUI.Controllers
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 var chat = await _dbContext.Chats.FirstOrDefaultAsync(c => c.SenderId == model.SenderId && c.ReceiverId == model.ReceiverId
-           || c.SenderId == model.ReceiverId && c.ReceiverId == model.SenderId);
+                || c.SenderId == model.ReceiverId && c.ReceiverId == model.SenderId);
                 if (chat != null)
                 {
                     var message = new Message
@@ -192,30 +193,6 @@ namespace AspProjectZust.WebUI.Controllers
             return Ok(allUsers);
         }
 
-        //public async Task<IActionResult> CommentLike(int postId)
-        //{
-        //    var user = await _userManager.GetUserAsync(HttpContext.User);
-        //    var allUsers = await _dbContext.Users.ToListAsync();
-        //    var post = await _dbContext.Posts.FirstOrDefaultAsync(p => p.Id == postId);
-        //    var comment = await _dbContext.Comments.FirstOrDefaultAsync(p => p.PostId == post.Id);
-
-        //    var userLikeComment = new UserLikedComment
-        //    {
-        //        Post = post,
-        //        PostId = post.Id,
-        //        UserId = user.Id,
-        //        CommentId = comment.Id,
-        //        User = user,
-        //        Comment = comment,
-        //    };
-
-        //    await _dbContext.UserLikedComments.AddAsync(userLikeComment);
-
-        //    _dbContext.Posts.Update(post);
-        //    await _dbContext.SaveChangesAsync();
-        //    return Ok(allUsers);
-        //}
-
         public async Task<IActionResult> AddPostComment(int postId, string commentAddedUserId, string coment)
         {
             var allUsers = await _dbContext.Users.ToListAsync();
@@ -301,10 +278,6 @@ namespace AspProjectZust.WebUI.Controllers
             return View(model);
         }
 
-        //public async Task<IActionResult> GetMyMessageNotification()
-        //{
-
-        //}
 
         public async Task<IActionResult> GetAllMessages(string receiverId, string senderId)
         {
@@ -322,15 +295,7 @@ namespace AspProjectZust.WebUI.Controllers
 
             chat.Messages = messages;
 
-            //var model = new SendMessageViewModel
-            //{
-            //    CurrentUserId = user.Id,
-            //    Chat = chat,
-            //    ReceIverImageUrl = chat.Receiver.ImageUrl,
-            //    SenderImageUrl = user.ImageUrl,
-            //    ReceiverName = chat.Receiver.UserName,
-            //    SenderName=ch
-            //};
+
 
             return Ok(new { CurrenUserId = user.Id, ReceiverName = chat.Receiver.UserName, SenderName = user.UserName, Chat = chat, ReceiverImageUrl = chat.Receiver.ImageUrl, SenderImageUrl = user.ImageUrl });
         }
@@ -362,14 +327,6 @@ namespace AspProjectZust.WebUI.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> GetFriends()
-        //{
-        //    var current = await _userManager.GetUserAsync(HttpContext.User);
-        //    var friends = await _dbContext.Friends.Include(nameof(Friend.YourFriend)).ToListAsync();
-        //    var myfriends = friends.Where(f => f.OwnId == current.Id).ToList();
-        //    return Ok(myfriends);
-        //}
-
         public async Task<IActionResult> TodayBirhdayFriends()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -398,9 +355,6 @@ namespace AspProjectZust.WebUI.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             ViewBag.User = user;
-
-            //Console.WriteLine(user.FollowersCount);
-            //Console.WriteLine(user.FollowingCount);
 
             return View();
         }
@@ -433,7 +387,6 @@ namespace AspProjectZust.WebUI.Controllers
         public async Task<IActionResult> NewsFeed(PostAddedViewModel post)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            //var friendsNotifications = new List<FriendRequest>();
             if (post.TagFriends != null)
             {
                 var tagFriends = post.TagFriends.Split('@');
@@ -459,20 +412,6 @@ namespace AspProjectZust.WebUI.Controllers
                         }
                     }
                 }
-
-                //for (int i = 0; i < friends.Count(); i++)
-                //{
-                //    var notification = new FriendRequest
-                //    {
-                //        Content = $"{user.UserName} tagged you on own post",
-                //        ReceiverId = friends[i].Id,
-                //        RequestTime = DateTime.Now.ToShortDateString() + "\t\t" + DateTime.Now.ToShortTimeString(),
-                //        Sender = user,
-                //        SenderId = user.Id,
-                //        Status = "Notification"
-                //    };
-                //    friendsNotifications.Add(notification);
-                //}
             }
 
             if (post.Content != null && post.Content.Trim() != String.Empty || post.Image != null || post.VideoUrl != null && post.VideoUrl != String.Empty)
@@ -492,7 +431,6 @@ namespace AspProjectZust.WebUI.Controllers
                     PublishTime = DateTime.Now,
                     User = user,
                     Videos = post.VideoUrl,
-                    //TaggedFriends=
                 };
 
                 if (post.VideoUrl != null)
@@ -501,40 +439,10 @@ namespace AspProjectZust.WebUI.Controllers
                     var d = split[split.Length - 1].Split('=');
                     newPost.Videos = d[1];
                 }
-                //var myFriends = await _dbContext.Friends.Where(f => f.YourFriendId == user.Id).ToListAsync();
-                //var data = await _dbContext.Users.Where(i => i.Id != user.Id).ToListAsync();
-                //var friendRequests = new List<FriendRequest>();
-                //foreach (var item in data)
-                //{
-                //    var friend = myFriends.FirstOrDefault(f => f.OwnId == item.Id);
-                //    if (friend != null)
-                //    {
-                //        var fri = await _dbContext.Users.FirstOrDefaultAsync(f => f.Id == friend.OwnId || f.Id == friend.YourFriendId && f.Id != user.Id);
-
-
-                //        var notification = new FriendRequest
-                //        {
-                //            Content = "New status shared",
-                //            ReceiverId = fri.Id,
-                //            RequestTime = DateTime.Now.ToShortDateString() + "\t\t" + DateTime.Now.ToShortTimeString(),
-                //            Sender = user,
-                //            SenderId = user.Id,
-                //            Status = "Notification"
-                //        };
-
-                //        friendRequests.Add(notification);
-                //    }
-                //}
-                //if (friendsNotifications.Count > 0)
-                //{
-                //    await _dbContext.FriendRequests.AddRangeAsync(friendsNotifications);
-                //}
                 await _dbContext.Posts.AddAsync(newPost);
                 await _dbContext.SaveChangesAsync();
             }
 
-            //Console.WriteLine(user.FollowersCount);
-            //Console.WriteLine(user.FollowingCount);
             ViewBag.User = user;
             return View();
         }
@@ -603,7 +511,7 @@ namespace AspProjectZust.WebUI.Controllers
             int saltSize = 16;
             int bytesRequired = 32;
             byte[] array = new byte[1 + saltSize + bytesRequired];
-            int iterations = 1000; // 1000, afaik, which is the min recommended for Rfc2898DeriveBytes
+            int iterations = 1000; 
             using (var pbkdf2 = new Rfc2898DeriveBytes(password, saltSize, iterations))
             {
                 byte[] salt = pbkdf2.Salt;
@@ -698,10 +606,7 @@ namespace AspProjectZust.WebUI.Controllers
             return View();
         }
 
-        public IActionResult Weather()
-        {
-            return View();
-        }
+    
 
         public async Task<IActionResult> AlreadySent(string id)
         {
@@ -713,10 +618,6 @@ namespace AspProjectZust.WebUI.Controllers
                 var request = await _dbContext.FriendRequests.FirstOrDefaultAsync(f => f.SenderId == senderUser.Id && f.ReceiverId == receiverUser.Id && f.Status == "Request");
 
                 _dbContext.FriendRequests.Remove(request);
-
-                //if (receiverUser != null)
-                //{
-
                 var sendRequest = new FriendRequest
                 {
                     Content = $"He withdrew the friendly situation he had sent",
@@ -729,8 +630,6 @@ namespace AspProjectZust.WebUI.Controllers
 
                 await _dbContext.FriendRequests.AddAsync(sendRequest);
                 await _dbContext.SaveChangesAsync();
-                //await _userManager.UpdateAsync(receiverUser);
-                //}
                 return Ok();
             }
             catch (Exception ex)
@@ -743,16 +642,6 @@ namespace AspProjectZust.WebUI.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var data = await _dbContext.Users.Where(i => i.Id != user.Id).ToListAsync();
-            //var data = await _userService.GetAll();
-            //var all = new List<CustomIdentityUser>();
-            //for (int i = 0; i < data.Count(); i++)
-            //{
-            //    if (data[i].Id == user.Id)
-            //    {
-            //        all.Add(data[i]);
-            //    }
-            //}
-
             var myRequests = _dbContext.FriendRequests.Where(s => s.SenderId == user.Id);
             var myFriends = _dbContext.Friends.Where(f => f.OwnId == user.Id || f.YourFriendId == user.Id);
 
@@ -797,22 +686,6 @@ namespace AspProjectZust.WebUI.Controllers
             return BadRequest();
         }
 
-        //public async Task<List<Comment>> GetPostComments(List<Post> post)
-        //{
-        //    List<Comment> comments = null;
-        //    for (int i = 0; i < post.Count(); i++)
-        //    {
-        //        var d = await _dbContext.Comments.FirstOrDefaultAsync(p => p.Id == post[i].Id);
-        //        if (d != null)
-        //        {
-        //            post[i].Comments = comments;
-        //        }
-
-        //        //comments.AddRange(d);
-        //    }
-        //    return comments;
-        //}
-
         public async Task<IActionResult> GetPosts()
         {
             var allUsers = await _dbContext.Users.ToListAsync();
@@ -854,7 +727,6 @@ namespace AspProjectZust.WebUI.Controllers
                     friendPosts.AddRange(post);
                 }
             }
-            //var friend = _dbContext.Friends.Where(f => f.OwnId == id && f.YourFriendId == user.Id || f.OwnId == user.Id && f.YourFriendId == id);
             var myPosts = await _dbContext.Posts.Where(p => p.CustomIdentityUserId == user.Id).ToListAsync();
             for (int i = 0; i < myPosts.Count(); i++)
             {
@@ -890,7 +762,6 @@ namespace AspProjectZust.WebUI.Controllers
 
             var friend = _dbContext.Friends.Where(f => f.OwnId == id && f.YourFriendId == user.Id || f.OwnId == user.Id && f.YourFriendId == id);
 
-            //var request = await _dbContext.FriendRequests.FirstOrDefaultAsync(f => f.SenderId == sender.Id && f.ReceiverId == receicer.Id && f.Status == "Request");
 
             user.FollowersCount -= 1;
             user.FollowingCount -= 1;
@@ -934,28 +805,8 @@ namespace AspProjectZust.WebUI.Controllers
             {
                 requests = await _dbContext.FriendRequests.Include(nameof(FriendRequest.Sender)).Where(r => r.ReceiverId == current.Id && r.Sender.UserName.Contains(filter) && r.Status == "Message").OrderByDescending(r => r.RequestTime).ToListAsync();
             }
-            //var filterRequests =  requests.Where(f => );
-            //for (int i = 0; i < requests.Count; i++)
-            //{
-            //    for (int k = 0; k < allUsers.Count; k++)
-            //    {
-            //        if (requests[i].SenderId == allUsers[k].Id)
-            //        {
-            //            requests[i].Sender = allUsers[k];
-            //        }
-            //    }
-            //}
             return Ok(requests);
         }
-
-        //public async Task<IActionResult> GetAllRequests()
-        //{
-        //    var current = await _userManager.GetUserAsync(HttpContext.User);
-        //    var requests = _dbContext.FriendRequests.Where(r => r.ReceiverId == current.Id);
-        //    return Ok(requests);
-        //}
-
-        //[HttpPut]
 
         public async Task<IActionResult> CurrentUser()
         {
@@ -1078,28 +929,10 @@ namespace AspProjectZust.WebUI.Controllers
 
         public async Task<IActionResult> UserMessage(string id)
         {
-            //var user = await _userManager.GetUserAsync(HttpContext.User);
             var friend = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
             var sender = await _userManager.GetUserAsync(HttpContext.User);
 
-            //var model = new LiveChatViewModel
-            //{
-            //    ReceiverId = friend.Id,
-            //    SenderId = sender.Id,
-            //    Friend = friend,
-            //};
-
-            //var user = await _userManager.GetUserAsync(HttpContext.User);
             var chat = await _dbContext.Chats.Include(nameof(Chat.Receiver)).FirstOrDefaultAsync(c => c.SenderId == sender.Id && c.ReceiverId == id || c.ReceiverId == sender.Id && c.SenderId == id);
-            //var receiver = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
-
-            //var messageNotification = await _dbContext.FriendRequests.Where(f => f.ReceiverId == user.Id && f.SenderId == receiver.Id && f.Status == "Message").ToListAsync();
-
-            //if (messageNotification != null)
-            //{
-            //    _dbContext.FriendRequests.RemoveRange(messageNotification);
-            //    await _dbContext.SaveChangesAsync();
-            //}
 
             if (chat == null)
             {
@@ -1127,13 +960,6 @@ namespace AspProjectZust.WebUI.Controllers
 
             chat.Messages = messages;
 
-            //var model = new ChatViewModel
-            //{
-            //    CurrentChat = chat,
-            //    Sender = sender,
-            //    CurrentUserId = sender.Id,
-            //    Friend = friend
-            //};
 
             return Ok(new { CurrenUserId = sender.Id, ReceiverUserId = friend.Id, ReceiverName = chat.Receiver.UserName, SenderName = sender.UserName, Chat = chat, ReceiverImageUrl = chat.Receiver.ImageUrl, SenderImageUrl = sender.ImageUrl });
         }
@@ -1144,15 +970,6 @@ namespace AspProjectZust.WebUI.Controllers
             var receiver = await _userManager.GetUserAsync(HttpContext.User);
             var sender = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == senderId);
 
-            //sender.FriendRequests.Add(new FriendRequest
-            //{
-            //    Status = "Notification",
-            //    Content = $"{receiver.UserName} confirm request",
-            //    ReceiverId = sender.Id,
-            //    SenderId = receiver.Id,
-            //    Sender = receiver,
-            //    RequestTime = DateTime.Now.ToShortDateString() + "\t\t" + DateTime.Now.ToShortTimeString(),
-            //});
 
             var receiverFriend = new Friend
             {
